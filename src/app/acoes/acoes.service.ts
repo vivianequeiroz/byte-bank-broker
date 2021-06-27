@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, pluck, tap } from 'rxjs/operators';
-import { Acao } from './modelo/acoes';
+import { Acao, AcoesAPI } from './modelo/acoes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AcoesService {
 
-  constructor(private httpCliete: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getAcoes() {
-    return this.httpCliete
-      .get<any>('http://localhost:3000/acoes')
+    return this.httpClient
+      .get<AcoesAPI>('http://localhost:3000/acoes')
       .pipe(
-        tap((valor) => console.log(valor)),
+        tap((valor) => console.log(valor)), // doesn't interfere in the code, used to analyze values   
         // map((api) => api.payload), pluck operator receive a string with the name o the property we need to extract
         pluck('payload'),
         map((acoes) => 
